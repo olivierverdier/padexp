@@ -190,7 +190,8 @@ The numerator :math:`N` is now computed by:
 			s = int(math.floor(math.sqrt(self.d)))
 		Rs = self.pade
 		Z = Polynomial.exponents(z,s)
-		self.phi = [R(Z) for R in Rs]
+		phi = [R(Z) for R in Rs]
+		return phi
 
 
 	def __call__(self, z):
@@ -203,32 +204,32 @@ It proceeds in three steps:
 3. scale back by repeatedly squaring
 		"""
 		scaling = self.scaling(z)
-		self.eval_pade(z/2**scaling)
+		phis = self.eval_pade(z/2**scaling)
 		for s in range(scaling):
-			self.square()
-		return self.phi
+			phis = self.square(phis)
+		return phis
 
-	def phi_square(self, l):
+	def phi_square(self, phis, l):
 		"""
 Formula for squaring phi_l from existing phi_k for k≤l, taken from the `Expint documentation`_.
 
 .. _Expint documentation: http://www.math.ntnu.no/preprint/numerics/2005/N4-2005.pdf
 		"""
 		ifac = self.C
-		phi = self.phi
 		odd = l % 2
 		half = l//2
 		next = half
 		if odd:
 			next += 1
-		res = np.dot(phi[half], phi[next])
-		res += sum(2*ifac[j]*phi[l-j] for j in xrange(half))
+		res = np.dot(phis[half], phis[next])
+		res += sum(2*ifac[j]*phis[l-j] for j in xrange(half))
 		if odd:
-			res += ifac[half]*phi[half+1]
+			res += ifac[half]*phis[half+1]
 		res /= 2**l
 		return res
 
-	def square(self):
-		self.phi = [self.phi_square(l) for l in range(self.k+1)]
+	def square(self, phis):
+		phis = [self.phi_square(phis, l) for l in range(self.k+1)]
+		return phis
 
 

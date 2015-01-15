@@ -170,8 +170,7 @@ class TestExponential(unittest.TestCase):
 	def test_phi_eval_pade_mat(self,k=8,d=6):
 		z = .1*np.array([[1.,2.],[3.,1.]])
 		phi = Phi(k,d)
-		phi.eval_pade(z)
-		computed = phi.phi[-1]
+		computed = phi.eval_pade(z)[-1]
 		expected = phi_l(z,k)
 
 	def test_phi_scaled(self,l=5,d=10):
