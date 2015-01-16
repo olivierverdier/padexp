@@ -47,11 +47,10 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 	"""
 
 	def __init__(self, k, d=6):
-		self.k = k
 		self.d = d
-		self.pade = list(self.compute_Pade())
+		self.pade = list(self.compute_Pade(k,d))
 
-	def compute_Pade(self):
+	def compute_Pade(self, k, d):
 		r"""
 Compute the Padé approximations of order :math:`d` of :math:`φ_l`, for :math:`0 ≤ l ≤ k`.
 
@@ -79,8 +78,6 @@ The numerator :math:`N` is now computed by:
 	N = D*C
 
 		"""
-		d = self.d
-		k = self.k
 		J = np.arange(d+1)
 		j = J[:-1]
 		a = -(d-j)/(2*d-j)/(j+1)
@@ -152,7 +149,7 @@ The argument is an array containing [phi_0,...,phi_l].
 		return res
 
 	def square(self, phis):
-		phis = [self.square_last(phis[:l+1]) for l in range(self.k+1)]
+		phis = [self.square_last(phis[:l+1]) for l in range(len(phis))]
 		return phis
 
 
