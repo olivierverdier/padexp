@@ -5,72 +5,10 @@ import unittest
 
 import scipy.linalg as slin
 import numpy.testing as nt
+from tools import simple_mul
 
 from padexp.phi_pade import *
 from padexp.polynomial import *
-from padexp.rational import *
-
-class TestPolynomial(unittest.TestCase):
-	def test_poly_exps(self):
-		x = np.array([[1.,2.],[3.,1.]])
-		x2 = np.dot(x,x)
-		X = Polynomial.exponents(x,2)
-		nt.assert_array_almost_equal(X[-1],x2)
-		nt.assert_array_almost_equal(X[1],x)
-		nt.assert_array_almost_equal(X[0], np.identity(2))
-
-	def test_poly_exception(self):
-		p = Polynomial([1.,2])
-		x = np.array([[1.,2.],[3.,1.]])
-		Z = Polynomial.exponents(x,0)
-		with self.assertRaises(ValueError):
-			p(Z)
-
-	def test_poly_constant(self):
-		p = Polynomial([1.])
-		x = np.random.random_sample([2,2])
-		Z = Polynomial.exponents(x,0)
-		nt.assert_array_almost_equal(p(Z), np.identity(2))
-
-	def test_simple_mul_mat(self):
-		X = np.array([[1.,2.],[3.,1.]])
-		expected = 9.*np.identity(2) + 3.*X + 2.*np.dot(X,X)
-		computed = simple_mul([9.,3.,2.], X)
-		nt.assert_almost_equal(computed, expected)
-
-
-	def test_mat_pol(self,n=2):
-		for d in range(1,20):
-			p = Polynomial(np.random.rand(d+1))
-			z = np.random.rand(n,n)
-			expected = simple_mul(p.coeffs, z)
-	## 		expected = p(Polynomial.exponents(z,1))
-			for s in range(1, d+1):
-				Z = Polynomial.exponents(z,s)
-				computed = p(Z)
-				print p.coeffs, s
-				nt.assert_almost_equal(computed, expected)
-
-def simple_mul(p, x):
-	"""
-	Numerical value of the polynomial at x
-		x may be a scalar or an array
-	"""
-	X = Polynomial.exponents(x,len(p)-1)
-	return sum(pk*xk for pk,xk in zip(p,X))
-
-class TestRational(unittest.TestCase):
-	def test_rational_fraction(self):
-		N = Polynomial([1.,2.])
-		D = Polynomial([3.,4])
-		R = RationalFraction(N.coeffs, D.coeffs)
-		X = np.random.random_sample([2,2])
-		Z = Polynomial.exponents(X)
-		nt.assert_array_almost_equal(R(Z), slin.solve(D(Z),N(Z)))
-		x = 3.
-		z = Polynomial.exponents(x)
-		nt.assert_array_almost_equal(R(z), N(z)/D(z))
-
 
 def expm(M):
 	"""
