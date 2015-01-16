@@ -84,10 +84,8 @@ class TestExponential(unittest.TestCase):
 		phi = Exponential(k,d)
 		Rs = phi.pade
 		for z in  [.1*np.array([[1.,2.],[3.,1.]]),.1j*np.array([[1.j,2.],[3.,1.]]), np.array([[.01]]), np.array([[.1]])]:
-			print z
 			phis = phi(z)
 			for l in range(1,k+1):
-				print l
 				R = Rs[l]
 				N = R.numerator
 				D = R.denominator
@@ -130,7 +128,6 @@ class TestExponential(unittest.TestCase):
 	## 	z = np.random.rand(2,2)
 		phi = Exponential(l,d)
 		for z in [.01*A, .1*A, A, 2*A, 10*A]:
-			print z
 			expected = phi_l(z,l)
 			computed = phi(z)[-1]
 			nt.assert_almost_equal(computed/expected, np.ones_like(expected))

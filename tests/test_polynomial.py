@@ -47,6 +47,5 @@ class TestPolynomial(unittest.TestCase):
 			for s in range(1, d+1):
 				Z = Polynomial.exponents(z,s)
 				computed = p(Z)
-				print p.coeffs, s
 				nt.assert_almost_equal(computed, expected)
 
