@@ -49,3 +49,10 @@ class TestPolynomial(unittest.TestCase):
 				computed = p(Z)
 				nt.assert_almost_equal(computed, expected)
 
+	def test_from_array(self):
+		"""
+		Coeffs are stored in a list.
+		"""
+		L = [1.,2.]
+		p = Polynomial(np.array(L))
+		self.assertEqual(p.coeffs, L)

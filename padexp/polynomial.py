@@ -20,7 +20,7 @@ The polynomial is split into chunks of size :data:`s`.
 .. [Golub] Golub, G.H.  and van Loan, C.F., *Matrix Computations*, 3rd ed. :isbn:`9780801854149`
 	"""
 	def __init__(self, coeffs):
-		self.coeffs = coeffs
+		self.coeffs = list(coeffs)
 
 	@classmethod
 	def exponents(self, z, s=1):
