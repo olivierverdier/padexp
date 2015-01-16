@@ -46,7 +46,7 @@ where :data:`M` is a square array.
 The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :math:`0≤k≤l`.
 	"""
 
-	def __init__(self, k, order=6):
+	def __init__(self, k=0, order=6):
 		self.optimal_exponent = self.compute_optimal_exponent(order)
 		self.factorials = self.compute_factorials(k+order+1)
 		self.pade = list(self.compute_Pade(k,order))
