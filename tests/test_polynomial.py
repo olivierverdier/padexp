@@ -49,6 +49,11 @@ class TestPolynomial(unittest.TestCase):
 				computed = p(Z)
 				nt.assert_almost_equal(computed, expected)
 
+	def test_repr(self):
+		p = Polynomial([1.,2.])
+		expected = "Polynomial([1.0, 2.0])"
+		self.assertEqual(repr(p), expected)
+
 	def test_from_array(self):
 		"""
 		Coeffs are stored in a list.

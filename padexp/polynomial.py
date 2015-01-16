@@ -22,6 +22,9 @@ The polynomial is split into chunks of size :data:`s`.
 	def __init__(self, coeffs):
 		self.coeffs = list(coeffs)
 
+	def __repr__(self):
+		return "Polynomial({})".format(repr(self.coeffs))
+
 	@classmethod
 	def exponents(self, z, s=1):
 		"""
