@@ -47,7 +47,7 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 	"""
 
 	def __init__(self, k, order=6):
-		self.order = order
+		self.optimal_exponent = self.compute_optimal_exponent(order)
 		self.factorials = self.compute_factorials(k+order+1)
 		self.pade = list(self.compute_Pade(k,order))
 
@@ -63,14 +63,14 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 
 	def compute_Pade(self, k, order):
 		r"""
-Compute the Padé approximations of order :math:`d` of :math:`φ_l`, for :math:`0 ≤ l ≤ k`.
+Compute the Padé approximations of the given order of :math:`φ_l`, for :math:`0 ≤ l ≤ k`.
 
 The goal is to produce an approximation of the form:
 
 .. math::
 	φ_{\ell} = \frac{N}{D}
 
-where :math:`N` and :math:`D` are polynomials.
+where :math:`N` and :math:`D` are polynomials of given order.
 The formula for :math:`D` is first computed recursively using the following recursion relations:
 
 .. math::
@@ -109,7 +109,7 @@ The numerator :math:`N` is now computed by:
 		return int(math.ceil(e))
 
 	@classmethod
-	def optimal_exponent(self, order):
+	def compute_optimal_exponent(self, order):
 		s = int(math.floor(math.sqrt(order)))
 		return s
 
@@ -118,7 +118,7 @@ The numerator :math:`N` is now computed by:
 		Evaluate :math:`φ_l(z)` using the Padé approximation.
 		"""
 		if s is None:
-			s = self.optimal_exponent(self.order)
+			s = self.optimal_exponent
 		Rs = self.pade
 		Z = Polynomial.exponents(z,s)
 		phi = [R(Z) for R in Rs]
