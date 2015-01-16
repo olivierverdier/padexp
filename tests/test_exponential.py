@@ -132,3 +132,16 @@ class TestExponential(unittest.TestCase):
 			computed = phi(z)[-1]
 			nt.assert_almost_equal(computed/expected, np.ones_like(expected))
 
+	def test_rotation(self, n=10):
+		"""
+		Test exp(w) with w n x n skew symmetric gives the right rotation matrix.
+		"""
+		J = np.zeros([n,n])
+		J[0,1] = 1.
+		J[1,0] = -1.
+		e = Exponential()
+		angle = np.random.rand()
+		computed = e(angle*J)[0]
+		expected = np.identity(n)
+		expected[:2,:2] = np.array([[np.cos(angle),np.sin(angle)],[-np.sin(angle),np.cos(angle)]])
+		nt.assert_allclose(computed, expected)
