@@ -107,12 +107,17 @@ The numerator :math:`N` is now computed by:
 		e = max(threshold, np.log2(norm))
 		return int(math.ceil(e))
 
+	@classmethod
+	def optimal_exponent(self, d):
+		s = int(math.floor(math.sqrt(d)))
+		return s
+
 	def eval_pade(self, z, s=None):
 		"""
 		Evaluate :math:`φ_l(z)` using the Padé approximation.
 		"""
 		if s is None:
-			s = int(math.floor(math.sqrt(self.d)))
+			s = self.optimal_exponent(self.d)
 		Rs = self.pade
 		Z = Polynomial.exponents(z,s)
 		phi = [R(Z) for R in Rs]
