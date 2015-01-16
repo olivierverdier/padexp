@@ -102,7 +102,7 @@ class TestExponential(unittest.TestCase):
 		phi = Exponential(k,d)
 		phis = phi(z)
 		for j,p in enumerate(phis):
-			compare_to_id(p/phi.C[j]) # generate tests instead
+			compare_to_id(p/phi.factorials[j]) # generate tests instead
 
 
 	def test_phi_eval_pade_mat(self,k=8,d=6):

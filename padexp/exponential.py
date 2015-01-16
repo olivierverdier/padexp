@@ -48,10 +48,11 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 
 	def __init__(self, k, d=6):
 		self.d = d
+		self.factorials = self.compute_factorials(k+d+1)
 		self.pade = list(self.compute_Pade(k,d))
 
 	@classmethod
-	def factorials(self, n):
+	def compute_factorials(self, n):
 		"""
 		Factorials up to order n: 0!, 1!, ..., n!
 		"""
@@ -96,10 +97,8 @@ The numerator :math:`N` is now computed by:
 		l = np.arange(k).reshape(-1,1)
 		al = (2*d-l)*(2*d+l+1-J)
 		D[1:,:] = np.cumprod(al,0) * D[0,:]
-		C = self.factorials(d+k+1)
-		self.C = C # save for future use; C[j] == 1/j!
 		for m,Dr in enumerate(D):
-			yield RationalFraction(np.convolve(Dr, C[m:m+d+1])[:d+1], Dr)
+			yield RationalFraction(np.convolve(Dr, self.factorials[m:m+d+1])[:d+1], Dr)
 
 	@classmethod
 	def scaling(self, z, threshold=0):
@@ -148,7 +147,7 @@ The argument is an array containing [phi_0,...,phi_l].
 .. _Expint documentation: http://www.math.ntnu.no/preprint/numerics/2005/N4-2005.pdf
 		"""
 		l = len(phis) - 1
-		ifac = self.C
+		ifac = self.factorials
 		odd = l % 2
 		half = l//2
 		next = half
