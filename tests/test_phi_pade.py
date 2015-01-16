@@ -7,6 +7,8 @@ import scipy.linalg as slin
 import numpy.testing as nt
 
 from padexp.phi_pade import *
+from padexp.polynomial import *
+from padexp.rational import *
 
 class TestPolynomial(unittest.TestCase):
 	def test_poly_exps(self):
