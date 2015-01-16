@@ -50,6 +50,16 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 		self.d = d
 		self.pade = list(self.compute_Pade(k,d))
 
+	@classmethod
+	def factorials(self, n):
+		"""
+		Factorials up to order n: 0!, 1!, ..., n!
+		"""
+		C = np.empty(n+1)
+		C[0] = 1.
+		C[1:] = 1./np.cumprod(np.arange(n)+1)
+		return C
+
 	def compute_Pade(self, k, d):
 		r"""
 Compute the Padé approximations of order :math:`d` of :math:`φ_l`, for :math:`0 ≤ l ≤ k`.
@@ -86,9 +96,7 @@ The numerator :math:`N` is now computed by:
 		l = np.arange(k).reshape(-1,1)
 		al = (2*d-l)*(2*d+l+1-J)
 		D[1:,:] = np.cumprod(al,0) * D[0,:]
-		C = np.empty(d+k+2)
-		C[0] = 1.
-		C[1:] = 1./np.cumprod(np.arange(d+k+1)+1)
+		C = self.factorials(d+k+1)
 		self.C = C # save for future use; C[j] == 1/j!
 		for m,Dr in enumerate(D):
 			yield RationalFraction(np.convolve(Dr, C[m:m+d+1])[:d+1], Dr)
