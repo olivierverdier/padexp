@@ -209,12 +209,15 @@ It proceeds in three steps:
 			phis = self.square(phis)
 		return phis
 
-	def phi_square(self, phis, l):
+	def square_last(self, phis):
 		"""
 Formula for squaring phi_l from existing phi_k for k≤l, taken from the `Expint documentation`_.
 
+The argument is an array containing [phi_0,...,phi_l].
+
 .. _Expint documentation: http://www.math.ntnu.no/preprint/numerics/2005/N4-2005.pdf
 		"""
+		l = len(phis) - 1
 		ifac = self.C
 		odd = l % 2
 		half = l//2
@@ -229,7 +232,7 @@ Formula for squaring phi_l from existing phi_k for k≤l, taken from the `Expint
 		return res
 
 	def square(self, phis):
-		phis = [self.phi_square(phis, l) for l in range(self.k+1)]
+		phis = [self.square_last(phis[:l+1]) for l in range(self.k+1)]
 		return phis
 
 
