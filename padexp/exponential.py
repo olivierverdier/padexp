@@ -46,10 +46,10 @@ where :data:`M` is a square array.
 The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :math:`0≤k≤l`.
 	"""
 
-	def __init__(self, k, d=6):
-		self.d = d
-		self.factorials = self.compute_factorials(k+d+1)
-		self.pade = list(self.compute_Pade(k,d))
+	def __init__(self, k, order=6):
+		self.order = order
+		self.factorials = self.compute_factorials(k+order+1)
+		self.pade = list(self.compute_Pade(k,order))
 
 	@classmethod
 	def compute_factorials(self, n):
@@ -61,7 +61,7 @@ The variable ``result`` is a list of all the values of :math:`φ_{k}(M)` for :ma
 		C[1:] = 1./np.cumprod(np.arange(n)+1)
 		return C
 
-	def compute_Pade(self, k, d):
+	def compute_Pade(self, k, order):
 		r"""
 Compute the Padé approximations of order :math:`d` of :math:`φ_l`, for :math:`0 ≤ l ≤ k`.
 
@@ -89,6 +89,7 @@ The numerator :math:`N` is now computed by:
 	N = D*C
 
 		"""
+		d = order
 		J = np.arange(d+1)
 		j = J[:-1]
 		a = -(d-j)/(2*d-j)/(j+1)
@@ -98,7 +99,8 @@ The numerator :math:`N` is now computed by:
 		al = (2*d-l)*(2*d+l+1-J)
 		D[1:,:] = np.cumprod(al,0) * D[0,:]
 		for m,Dr in enumerate(D):
-			yield RationalFraction(np.convolve(Dr, self.factorials[m:m+d+1])[:d+1], Dr)
+			rat = RationalFraction(np.convolve(Dr, self.factorials[m:m+d+1])[:d+1], Dr)
+			yield rat
 
 	@classmethod
 	def scaling(self, z, threshold=0):
@@ -107,8 +109,8 @@ The numerator :math:`N` is now computed by:
 		return int(math.ceil(e))
 
 	@classmethod
-	def optimal_exponent(self, d):
-		s = int(math.floor(math.sqrt(d)))
+	def optimal_exponent(self, order):
+		s = int(math.floor(math.sqrt(order)))
 		return s
 
 	def eval_pade(self, z, s=None):
@@ -116,7 +118,7 @@ The numerator :math:`N` is now computed by:
 		Evaluate :math:`φ_l(z)` using the Padé approximation.
 		"""
 		if s is None:
-			s = self.optimal_exponent(self.d)
+			s = self.optimal_exponent(self.order)
 		Rs = self.pade
 		Z = Polynomial.exponents(z,s)
 		phi = [R(Z) for R in Rs]
