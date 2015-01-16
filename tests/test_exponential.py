@@ -81,7 +81,7 @@ class TestExponential(unittest.TestCase):
 		"""
 		Test of the Padé approximation of :math:`φ_l` on matrices.
 		"""
-		phi = Phi(k,d)
+		phi = Exponential(k,d)
 		Rs = phi.pade
 		for z in  [.1*np.array([[1.,2.],[3.,1.]]),.1j*np.array([[1.j,2.],[3.,1.]]), np.array([[.01]]), np.array([[.1]])]:
 			print z
@@ -101,7 +101,7 @@ class TestExponential(unittest.TestCase):
 	def test_identity(self,k=6, d=10):
 		"""Test phi_k(0) = Id/k!"""
 		z = np.zeros([2,2])
-		phi = Phi(k,d)
+		phi = Exponential(k,d)
 		phis = phi(z)
 		for j,p in enumerate(phis):
 			compare_to_id(p/phi.C[j]) # generate tests instead
@@ -109,26 +109,26 @@ class TestExponential(unittest.TestCase):
 
 	def test_phi_eval_pade_mat(self,k=8,d=6):
 		z = .1*np.array([[1.,2.],[3.,1.]])
-		phi = Phi(k,d)
+		phi = Exponential(k,d)
 		computed = phi.eval_pade(z)[-1]
 		expected = phi_l(z,k)
 
 	def test_phi_scaled(self,l=5,d=10):
 		z = 100.1
-		phi = Phi(l,d)
+		phi = Exponential(l,d)
 		expected = phi_l(z,l)
 		computed = phi(z)[-1]
 		nt.assert_approx_equal(computed, expected)
 
 	def test_scaling(self,):
-		nt.assert_equal(Phi.scaling(1.), 0)
-		nt.assert_equal(Phi.scaling(3.), 2)
-		nt.assert_equal(Phi.scaling(.1), 0)
+		nt.assert_equal(Exponential.scaling(1.), 0)
+		nt.assert_equal(Exponential.scaling(3.), 2)
+		nt.assert_equal(Exponential.scaling(.1), 0)
 
 	def test_phi_scaled_mat(self,l=2,d=6):
 		A =  np.array([[1.,2.],[3.,1.]])
 	## 	z = np.random.rand(2,2)
-		phi = Phi(l,d)
+		phi = Exponential(l,d)
 		for z in [.01*A, .1*A, A, 2*A, 10*A]:
 			print z
 			expected = phi_l(z,l)

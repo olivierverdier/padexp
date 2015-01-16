@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 """
-:mod:`phi_pade` -- Phi Padé
-============================
+:mod:`phi_pade` -- Exponentials with rational approximations
+============================================================
 
 Computation of φ functions using Padé approximations and Scaling and Squaring.
 
@@ -29,7 +29,7 @@ def ninf(M):
 		return abs(M)
 	return lin.norm(M,np.inf)
 
-class Phi(object):
+class Exponential(object):
 	r"""
 Main class to compute the :math:`φ_l` functions.
 The simplest way to define those functions is by the formula:
@@ -39,7 +39,7 @@ The simplest way to define those functions is by the formula:
 
 Usage is as follows::
 
-	phi = Phi(k,d)
+	phi = Exponential(k,d)
 	result = phi(M)
 
 where :data:`M` is a square array.
