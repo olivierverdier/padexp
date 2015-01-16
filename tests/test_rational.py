@@ -27,4 +27,6 @@ class TestRational(unittest.TestCase):
 		z = Polynomial.exponents(x)
 		nt.assert_array_almost_equal(R(z), N(z)/D(z))
 
-
+	def test_repr(self):
+		self.assertEqual(repr(self.R), "Polynomial([1.0, 2.0]) / Polynomial([3.0, 4.0])")
+			
