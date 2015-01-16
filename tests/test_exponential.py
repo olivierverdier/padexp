@@ -7,7 +7,7 @@ import scipy.linalg as slin
 import numpy.testing as nt
 from tools import simple_mul
 
-from padexp.phi_pade import *
+from padexp.exponential import *
 from padexp.polynomial import *
 
 def expm(M):
