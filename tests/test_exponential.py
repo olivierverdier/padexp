@@ -119,9 +119,12 @@ class TestExponential(unittest.TestCase):
 		nt.assert_approx_equal(computed, expected)
 
 	def test_scaling(self,):
+		nt.assert_equal(Exponential.scaling(1.1), 1)
 		nt.assert_equal(Exponential.scaling(1.), 0)
 		nt.assert_equal(Exponential.scaling(3.), 2)
 		nt.assert_equal(Exponential.scaling(.1), 0)
+		nt.assert_equal(Exponential.scaling(2.), 1)
+		nt.assert_equal(Exponential.scaling(2.1), 2)
 
 	def test_phi_scaled_mat(self,l=2,d=6):
 		A =  np.array([[1.,2.],[3.,1.]])

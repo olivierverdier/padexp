@@ -22,6 +22,8 @@ import numpy as np
 import math
 import numpy.linalg as lin
 
+np.seterr('raise')
+
 from .rational import RationalFraction, Polynomial
 
 def ninf(M):
@@ -103,9 +105,13 @@ The numerator :math:`N` is now computed by:
 			yield rat
 
 	@classmethod
-	def scaling(self, z, threshold=0):
-		norm = ninf(z)
-		e = max(threshold, np.log2(norm))
+	def scaling(self, x):
+		"""
+		Return the minimal nonnegative exponent s such that x/2^s < 1
+		"""
+		if x <= 1:
+			return 0
+		e = np.log2(x)
 		return int(math.ceil(e))
 
 	@classmethod
@@ -134,7 +140,7 @@ It proceeds in three steps:
 2. compute :math:`φ_k(z/2^s)` using the Padé approximation
 3. scale back by repeatedly squaring
 		"""
-		scaling = self.scaling(z)
+		scaling = self.scaling(ninf(z))
 		phis = self.eval_pade(z/2**scaling)
 		for s in range(scaling):
 			phis = self.square(phis)
