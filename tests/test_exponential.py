@@ -145,3 +145,13 @@ class TestExponential(unittest.TestCase):
 		expected = np.identity(n)
 		expected[:2,:2] = np.array([[np.cos(angle),np.sin(angle)],[-np.sin(angle),np.cos(angle)]])
 		nt.assert_allclose(computed, expected)
+
+	def test_translation(self, n=16):
+		xi = np.zeros([n,n])
+		t = np.random.rand(n-1)
+		xi[:-1,-1] = t
+		e = Exponential()
+		computed = e(xi)[0]
+		expected = xi.copy()
+		expected += np.identity(n)
+		nt.assert_allclose(computed, expected)
