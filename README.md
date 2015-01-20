@@ -1,5 +1,7 @@
 # Padé approximations of exponential (phi) functions
 
+[![Build Status](https://travis-ci.org/olivierverdier/padexp.svg?branch=master)](https://travis-ci.org/olivierverdier/padexp)
+
 Exponential functions, in a general sense, are defined as
 
 E_j(x) = ∑_k x^k/(k+j)!
