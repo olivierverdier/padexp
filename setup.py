@@ -6,7 +6,7 @@ from distutils.core import setup
 
 setup(
 	name         = 'padexp',
-	version      = 0.1,
+	version      = '0.1',
 	description  = 'Padé approximation of exponential functions',
 	author = 'Olivier Verdier',
 	url = 'https://github.com/olivierverdier/padexp',
