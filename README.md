@@ -1,6 +1,6 @@
 # Padé approximations of exponential (phi) functions
 
-[![Build Status](https://travis-ci.org/olivierverdier/padexp.svg?branch=master)](https://travis-ci.org/olivierverdier/padexp) [![Coverage Status](https://img.shields.io/coveralls/olivierverdier/padexp/master.svg)](https://coveralls.io/r/olivierverdier/padexp?branch=master)
+[![Build Status](https://img.shields.io/travis/olivierverdier/padexp/master.svg)](https://travis-ci.org/olivierverdier/padexp) [![Coverage Status](https://img.shields.io/coveralls/olivierverdier/padexp/master.svg)](https://coveralls.io/r/olivierverdier/padexp?branch=master)
 
 Exponential functions, in a general sense, are defined as
 
