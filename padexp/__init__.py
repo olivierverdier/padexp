@@ -1,1 +1,1 @@
-from exponential import Exponential
+from .exponential import Exponential
