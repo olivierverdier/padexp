@@ -162,7 +162,7 @@ The argument is an array containing [phi_0,...,phi_l].
 		if odd:
 			next += 1
 		res = np.dot(phis[half], phis[next])
-		res += sum(2*ifac[j]*phis[l-j] for j in xrange(half))
+		res += sum(2*ifac[j]*phis[l-j] for j in range(half))
 		if odd:
 			res += ifac[half]*phis[half+1]
 		res /= 2**l
