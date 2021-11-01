@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/olivierverdier/padexp/master.svg?style=flat-square)](https://travis-ci.org/olivierverdier/padexp)
 [![Coverage Status](https://img.shields.io/coveralls/olivierverdier/padexp/master.svg?style=flat-square)](https://coveralls.io/r/olivierverdier/padexp?branch=master)
-![Python version](https://img.shields.io/badge/python-2.7, 3.4-blue.svg?style=flat-square)
+![Python version](https://img.shields.io/badge/python-2.7_3.4-blue.svg?style=flat-square)
 
 Exponential functions, in a general sense, are defined as
 
@@ -21,4 +21,4 @@ e = Exponential(4) # to compute the functions E_j for 0 ≤ j ≤ 4
 M = np.array([[1.,2.],[3.,4]])
 e(M) # returns a list containing [E_0(M), E_1(M),...,E_4(M)]
 ```
-This code is useful for exponential integrators, and is a port of the [expint Matlab package](http://www.math.ntnu.no/num/expint/matlab.php).
+This code is useful for exponential integrators, and is a port of the [expint Matlab package](https://dl.acm.org/doi/10.1145/1206040.1206044).
