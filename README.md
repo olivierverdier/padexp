@@ -7,7 +7,9 @@
 
 Exponential functions, in a general sense, are defined as
 
+```math
 E_j(x) = ∑_k x^k/(k+j)!
+```
 
 So for j=0, this is the regular exponential.
 
