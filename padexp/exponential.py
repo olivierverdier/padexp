@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 """
 :mod:`phi_pade` -- Exponentials with rational approximations
 ============================================================
@@ -16,7 +15,6 @@ Some formulae are taken from the `Expint documentation`_, of HÃ¥vard Berland, BÃ
 
 
 """
-from __future__ import division
 
 import numpy as np
 import math
