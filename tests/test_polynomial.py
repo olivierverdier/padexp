@@ -1,8 +1,8 @@
-
 import unittest
+import numpy as np
 import numpy.testing as nt
 
-from padexp.polynomial import *
+from padexp.polynomial import Polynomial
 
 from tools import simple_mul
 

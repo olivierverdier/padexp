@@ -1,11 +1,11 @@
-
 import unittest
+import numpy as np
 import numpy.testing as nt
 
 import scipy.linalg as slin
 
-from padexp.polynomial import *
-from padexp.rational import *
+from padexp.polynomial import Polynomial
+from padexp.rational import RationalFraction
 
 class TestRational(unittest.TestCase):
 	def setUp(self):
@@ -26,4 +26,3 @@ class TestRational(unittest.TestCase):
 
 	def test_repr(self):
 		self.assertEqual(repr(self.R), "Polynomial([1.0, 2.0]) / Polynomial([3.0, 4.0])")
-			

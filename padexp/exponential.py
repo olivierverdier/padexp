@@ -20,9 +20,10 @@ import numpy as np
 import math
 import numpy.linalg as lin
 
+from .rational import RationalFraction, Polynomial
+
 np.seterr('raise')
 
-from .rational import RationalFraction, Polynomial
 
 def ninf(M):
 	if np.isscalar(M):

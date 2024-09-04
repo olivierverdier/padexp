@@ -1,5 +1,4 @@
-
-from padexp.polynomial import *
+from padexp.polynomial import Polynomial
 
 def simple_mul(p, x):
 	"""

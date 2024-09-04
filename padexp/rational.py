@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: UTF-8
-from __future__ import division
-
-import numpy as np
 import numpy.linalg as lin
 
 from .polynomial import Polynomial

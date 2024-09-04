@@ -5,8 +5,13 @@ import scipy.linalg as slin
 import numpy.testing as nt
 from tools import simple_mul
 
-from padexp.exponential import *
-from padexp.polynomial import *
+import math
+
+from padexp.exponential import Exponential
+from padexp.polynomial import Polynomial
+
+import numpy.linalg as lin
+import numpy as np
 
 def expm(M):
 	"""
