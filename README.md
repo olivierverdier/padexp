@@ -8,10 +8,10 @@
 Exponential functions, in a general sense, are defined as
 
 ```math
-E_j(x) = \sum_k \frac{x^k}{(k+j)!}
+E_j(x) = \sum_{k=j}^{∞} \frac{x^k}{(k+j)!}
 ```
 
-So for j=0, this is the regular exponential.
+So for $j=0$, this is the regular exponential.
 
 The main application is to apply that exponential function to a *matrix*.
 
