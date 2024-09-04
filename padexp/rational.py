@@ -21,5 +21,3 @@ Initialize the object with numerator and denominator coefficients.
 			return lin.solve(self.denominator(Z), self.numerator(Z))
 		except lin.LinAlgError:
 			return self.numerator(Z)/self.denominator(Z)
-
-

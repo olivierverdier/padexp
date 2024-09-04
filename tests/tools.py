@@ -7,4 +7,3 @@ def simple_mul(p, x):
 	"""
 	X = Polynomial.exponents(x,len(p)-1)
 	return sum(pk*xk for pk,xk in zip(p,X))
-

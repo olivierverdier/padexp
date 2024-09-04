@@ -129,7 +129,6 @@ The numerator :math:`N` is now computed by:
 		phi = [R(Z) for R in Rs]
 		return phi
 
-
 	def __call__(self, z):
 		"""
 The final call to compute the values of :math:`φ_k(z)`.
@@ -170,5 +169,3 @@ The argument is an array containing [phi_0,...,phi_l].
 	def square(self, phis):
 		phis = [self.square_last(phis[:i+1]) for i in range(len(phis))]
 		return phis
-
-

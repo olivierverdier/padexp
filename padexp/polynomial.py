@@ -54,7 +54,7 @@ Evaluate the polynomial on a matrix, using matrix multiplications (:func:`dot`).
 		p = self.coeffs
 		P = 0
 		s = len(Z) - 1
-		if s == 0: # ok only if the polynomial is constant
+		if s == 0:  # ok only if the polynomial is constant
 			if len(p) > 1:
 				raise ValueError("Z must be provided in order to evaluate a non-constant polynomial.")
 			return p[0]*Z[0]

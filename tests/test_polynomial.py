@@ -34,13 +34,12 @@ class TestPolynomial(unittest.TestCase):
 		computed = simple_mul([9.,3.,2.], X)
 		nt.assert_almost_equal(computed, expected)
 
-
 	def test_mat_pol(self,n=2):
 		for d in range(1,20):
 			p = Polynomial(np.random.rand(d+1))
 			z = np.random.rand(n,n)
 			expected = simple_mul(p.coeffs, z)
-	## 		expected = p(Polynomial.exponents(z,1))
+			# expected = p(Polynomial.exponents(z,1))
 			for s in range(1, d+1):
 				Z = Polynomial.exponents(z,s)
 				computed = p(Z)

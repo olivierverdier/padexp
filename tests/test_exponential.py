@@ -30,15 +30,16 @@ def phi_l(z, n=0):
 		φ_{l+1}(z) = \frac{φ_l(z) - \frac{1}{l!}}{z}
 	"""
 	phi = expm(z)
-	fac = Polynomial.exponents(z,0)[0] # identity
+	fac = Polynomial.exponents(z,0)[0]  # identity
 	if np.isscalar(z):
 		iz = 1./z
 	else:
 		iz = lin.inv(z)
 	for i in range(n):
-		phi =  np.dot(phi - fac, iz)
+		phi = np.dot(phi - fac, iz)
 		fac /= i+1
 	return phi
+
 
 phi_formulae = {
 	0: lambda z: np.exp(z),
@@ -80,13 +81,13 @@ class TestExponential(unittest.TestCase):
 		computed = phi_l(z,1)
 		nt.assert_almost_equal(computed, expected)
 
-	def test_phi_pade(self,k=4,d=10):
+	def test_phi_pade(self, k=4, d=10):
 		"""
 		Test of the Padé approximation of :math:`φ_l` on matrices.
 		"""
 		phi = Exponential(k,d)
 		Rs = phi.pade
-		for z in  [.1*np.array([[1.,2.],[3.,1.]]),.1j*np.array([[1.j,2.],[3.,1.]]), np.array([[.01]]), np.array([[.1]])]:
+		for z in [.1*np.array([[1.,2.],[3.,1.]]),.1j*np.array([[1.j,2.],[3.,1.]]), np.array([[.01]]), np.array([[.1]])]:
 			phis = phi(z)
 			for n in range(1,k+1):
 				R = Rs[n]
@@ -96,8 +97,7 @@ class TestExponential(unittest.TestCase):
 				Nz = simple_mul(N.coeffs, z)
 				Dz = simple_mul(D.coeffs, z)
 				computed = lin.solve(Dz,Nz)
-				compare_phi_pade(computed, expected, phis[n]) # generate tests instead
-
+				compare_phi_pade(computed, expected, phis[n])  # generate tests instead
 
 	def test_identity(self,k=6, d=10):
 		"""Test phi_k(0) = Id/k!"""
@@ -105,8 +105,7 @@ class TestExponential(unittest.TestCase):
 		phi = Exponential(k,d)
 		phis = phi(z)
 		for j,p in enumerate(phis):
-			compare_to_id(p/phi.factorials[j]) # generate tests instead
-
+			compare_to_id(p/phi.factorials[j])  # generate tests instead
 
 	def test_phi_eval_pade_mat(self,k=8,d=6):
 		z = .1*np.array([[1.,2.],[3.,1.]])
@@ -131,8 +130,8 @@ class TestExponential(unittest.TestCase):
 		nt.assert_equal(Exponential.scaling(2.1), 2)
 
 	def test_phi_scaled_mat(self,n=2,d=6):
-		A =  np.array([[1.,2.],[3.,1.]])
-	## 	z = np.random.rand(2,2)
+		A = np.array([[1.,2.],[3.,1.]])
+		# z = np.random.rand(2,2)
 		phi = Exponential(n,d)
 		for z in [.01*A, .1*A, A, 2*A, 10*A]:
 			expected = phi_l(z,n)
