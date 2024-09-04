@@ -113,6 +113,7 @@ class TestExponential(unittest.TestCase):
 		phi = Exponential(k,d)
 		computed = phi.eval_pade(z)[-1]
 		expected = phi_l(z,k)
+		nt.assert_almost_equal(computed, expected)
 
 	def test_phi_scaled(self,n=5,d=10):
 		z = 100.1
