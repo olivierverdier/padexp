@@ -96,8 +96,8 @@ The numerator :math:`N` is now computed by:
 		a = -(d-j)/(2*d-j)/(j+1)
 		D = np.ones([k+1,d+1])
 		D[0,1:] = np.cumprod(a)
-		l = np.arange(k).reshape(-1,1)
-		al = (2*d-l)*(2*d+l+1-J)
+		kcol = np.arange(k).reshape(-1,1)
+		al = (2*d-kcol)*(2*d+kcol+1-J)
 		D[1:,:] = np.cumprod(al,0) * D[0,:]
 		for m,Dr in enumerate(D):
 			rat = RationalFraction(np.convolve(Dr, self.factorials[m:m+d+1])[:d+1], Dr)
@@ -153,22 +153,22 @@ The argument is an array containing [phi_0,...,phi_l].
 
 .. _Expint documentation: http://www.math.ntnu.no/preprint/numerics/2005/N4-2005.pdf
 		"""
-		l = len(phis) - 1
+		deg = len(phis) - 1
 		ifac = self.factorials
-		odd = l % 2
-		half = l//2
+		odd = deg % 2
+		half = deg//2
 		next = half
 		if odd:
 			next += 1
 		res = np.dot(phis[half], phis[next])
-		res += sum(2*ifac[j]*phis[l-j] for j in range(half))
+		res += sum(2*ifac[j]*phis[deg-j] for j in range(half))
 		if odd:
 			res += ifac[half]*phis[half+1]
-		res /= 2**l
+		res /= 2**deg
 		return res
 
 	def square(self, phis):
-		phis = [self.square_last(phis[:l+1]) for l in range(len(phis))]
+		phis = [self.square_last(phis[:i+1]) for i in range(len(phis))]
 		return phis
 
 

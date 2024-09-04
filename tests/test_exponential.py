@@ -23,8 +23,8 @@ def expm(M):
 		return slin.expm(M)
 
 
-def phi_l(z, l=0):
-	"""
+def phi_l(z, n=0):
+	r"""
 	Returns phi_l using the recursion formula:
 		φ_0 = exp
 		φ_{l+1}(z) = \frac{φ_l(z) - \frac{1}{l!}}{z}
@@ -35,7 +35,7 @@ def phi_l(z, l=0):
 		iz = 1./z
 	else:
 		iz = lin.inv(z)
-	for i in range(l):
+	for i in range(n):
 		phi =  np.dot(phi - fac, iz)
 		fac /= i+1
 	return phi
@@ -62,9 +62,9 @@ class TestExponential(unittest.TestCase):
 		Check that :func:`phi_l` computes :math:`φ_l` correctly for scalars (by comparing to :data:`phi_formulae`).
 		"""
 		z = .1
-		for l in range(4):
-			expected = phi_formulae[l](z)
-			computed = phi_l(z, l)
+		for n in range(4):
+			expected = phi_formulae[n](z)
+			computed = phi_l(z, n)
 			nt.assert_almost_equal(computed, expected)
 
 	def test_phi_0_mat(self):
@@ -88,15 +88,15 @@ class TestExponential(unittest.TestCase):
 		Rs = phi.pade
 		for z in  [.1*np.array([[1.,2.],[3.,1.]]),.1j*np.array([[1.j,2.],[3.,1.]]), np.array([[.01]]), np.array([[.1]])]:
 			phis = phi(z)
-			for l in range(1,k+1):
-				R = Rs[l]
+			for n in range(1,k+1):
+				R = Rs[n]
 				N = R.numerator
 				D = R.denominator
-				expected = phi_l(z,l)
+				expected = phi_l(z,n)
 				Nz = simple_mul(N.coeffs, z)
 				Dz = simple_mul(D.coeffs, z)
 				computed = lin.solve(Dz,Nz)
-				compare_phi_pade(computed, expected, phis[l]) # generate tests instead
+				compare_phi_pade(computed, expected, phis[n]) # generate tests instead
 
 
 	def test_identity(self,k=6, d=10):
@@ -114,10 +114,10 @@ class TestExponential(unittest.TestCase):
 		computed = phi.eval_pade(z)[-1]
 		expected = phi_l(z,k)
 
-	def test_phi_scaled(self,l=5,d=10):
+	def test_phi_scaled(self,n=5,d=10):
 		z = 100.1
-		phi = Exponential(l,d)
-		expected = phi_l(z,l)
+		phi = Exponential(n,d)
+		expected = phi_l(z,n)
 		computed = phi(z)[-1]
 		nt.assert_approx_equal(computed, expected)
 
@@ -129,12 +129,12 @@ class TestExponential(unittest.TestCase):
 		nt.assert_equal(Exponential.scaling(2.), 1)
 		nt.assert_equal(Exponential.scaling(2.1), 2)
 
-	def test_phi_scaled_mat(self,l=2,d=6):
+	def test_phi_scaled_mat(self,n=2,d=6):
 		A =  np.array([[1.,2.],[3.,1.]])
 	## 	z = np.random.rand(2,2)
-		phi = Exponential(l,d)
+		phi = Exponential(n,d)
 		for z in [.01*A, .1*A, A, 2*A, 10*A]:
-			expected = phi_l(z,l)
+			expected = phi_l(z,n)
 			computed = phi(z)[-1]
 			nt.assert_almost_equal(computed/expected, np.ones_like(expected))
 
